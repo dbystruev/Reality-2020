@@ -16,13 +16,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let configuration = ARFaceTrackingConfiguration()
-        arView.session.run(configuration)
+        guard ARFaceTrackingConfiguration.isSupported else { return }
+        
+        arView.session.run(ARFaceTrackingConfiguration())
         
         // Load the "Box" scene from the "Experience" Reality File
-        let faceAnchor = try! Webinar.loadScene()
+        let boxAnchor = try! Webinar.loadScene()
         
         // Add the box anchor to the scene
-        arView.scene.anchors.append(faceAnchor)
+        arView.scene.anchors.append(boxAnchor)
     }
 }
